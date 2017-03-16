@@ -30,7 +30,7 @@ class SlackAuthenticator < ::Auth::OAuth2Authenticator
     result.username = data[:nickname]
     result.email = data[:email]
 
-    result.email_valid = true
+    result.email_valid = !email.blank?
     result.extra_data = { uid: slack_uid, provider: provider }
 
     current_info = ::PluginStore.get("slack", "slack_uid_#{slack_uid}")
@@ -59,9 +59,9 @@ class SlackAuthenticator < ::Auth::OAuth2Authenticator
 
   def register_middleware(omniauth)
     unless TEAM_ID.nil?
-     omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, users:read', team: TEAM_ID
+     omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, users:read', team: escaperooms
     else
-     omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, users:read'
+     omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, users:read', team: escaperooms
     end
   end
 end
@@ -105,7 +105,7 @@ class OmniAuth::Strategies::Slack < OmniAuth::Strategies::OAuth2
   end
 end
 
-auth_provider title: 'Sign up using Slack',
+auth_provider title: 'Log in with Slack',
     message: 'Log in using your Slack account. (Make sure your popup blocker is disabled.)',
     frame_width: 920,
     frame_height: 800,
