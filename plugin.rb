@@ -1,22 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @jamescobalt
- Sign out
- Watch 1
-  Star 0
-  Fork 8 gsapophis/oauth-slack-discourse
-forked from 4xposed/oauth-slack-discourse
- Code  Pull requests 0  Projects 0  Wiki  Pulse  Graphs
-Tree: 96035abc9d Find file Copy pathoauth-slack-discourse/plugin.rb
-96035ab  on Sep 28, 2016
-@gsapophis gsapophis upd
-4 contributors @gsapophis @4xposed @mcmahoniel @mkucharz
-RawBlameHistory     
-171 lines (137 sloc)  26.8 KB
 # name: Slack Oauth2 Discourse
 # about: This plugin allows your users to sign up/in using their Slack account.
 # version: 0.3
@@ -164,7 +145,7 @@ class OmniAuth::Strategies::Slack < OmniAuth::Strategies::OAuth2
     @raw_info ||= access_token.get("/api/auth.test").parsed
   end
 end
-  auth_provider title: 'Log in with Slack',
+  auth_provider title: 'Sign up using Slack',
                 message: 'Log in using your Slack account. (Make sure your popup blocker is disabled.)',
                 frame_width: 920,
                 frame_height: 800,
@@ -188,5 +169,3 @@ register_css <<CSS
   }
 
 CSS
-Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help
