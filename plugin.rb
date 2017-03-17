@@ -59,9 +59,8 @@ class SlackAuthenticator < ::Auth::OAuth2Authenticator
   
   def register_middleware(omniauth)
     # omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identity.basic, identify, team:read, users:read', team: TEAM_ID
-    omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identity.basic, identity.email, identity.team', name: :sign_in_with_slack, team: TEAM_ID
-    omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, team:read, users:read', provider_ignores_state: true, team: TEAM_ID
-    # omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, users:read', team: TEAM_ID
+    # omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identity.basic, identity.email, identity.team', name: :sign_in_with_slack, team: TEAM_ID
+    omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, users:read, users:read.email', team: 'escaperooms'
   end
 end
 
@@ -145,7 +144,7 @@ class OmniAuth::Strategies::Slack < OmniAuth::Strategies::OAuth2
     @raw_info ||= access_token.get("/api/auth.test").parsed
   end
 end
-  auth_provider title: 'Sign up using Slack',
+  auth_provider title: 'Sign in using Slack',
                 message: 'Log in using your Slack account. (Make sure your popup blocker is disabled.)',
                 frame_width: 920,
                 frame_height: 800,
