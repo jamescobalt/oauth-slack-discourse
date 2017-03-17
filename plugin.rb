@@ -11,7 +11,7 @@ class SlackAuthenticator < ::Auth::OAuth2Authenticator
   
   CLIENT_ID = ENV['SLACK_CLIENT_ID']
   CLIENT_SECRET = ENV['SLACK_CLIENT_SECRET']
-  TEAM_ID = ENV['SLACK_TEAM_ID']
+  TEAM_ID = 'escaperooms'
   
   def name
     'slack'
@@ -59,8 +59,8 @@ class SlackAuthenticator < ::Auth::OAuth2Authenticator
   
   def register_middleware(omniauth)
     # omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identity.basic, identify, team:read, users:read', team: TEAM_ID
-    omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identity.basic', name: :sign_in_with_slack, team: TEAM_ID
-    omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, team:read, users:read', provider_ignores_state: true, team: TEAM_ID
+    omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identity.basic', name: :sign_in_with_slack, team: 'escaperooms'
+   # omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, team:read, users:read', provider_ignores_state: true, team: 'escaperooms'
     # omniauth.provider :slack, CLIENT_ID, CLIENT_SECRET, scope: 'identify, users:read', team: TEAM_ID
   end
 end
@@ -69,7 +69,7 @@ class OmniAuth::Strategies::Slack < OmniAuth::Strategies::OAuth2
   # Give your strategy a name.
   include OmniAuth::Strategy
   
-  TEAM_ID = ENV['SLACK_TEAM_ID']
+  TEAM_ID = 'escaperooms'
   
   option :name, "slack"
   
@@ -145,7 +145,7 @@ class OmniAuth::Strategies::Slack < OmniAuth::Strategies::OAuth2
     @raw_info ||= access_token.get("/api/auth.test").parsed
   end
 end
-  auth_provider title: 'Sign up using Slack',
+  auth_provider title: 'Log in with Slack',
                 message: 'Log in using your Slack account. (Make sure your popup blocker is disabled.)',
                 frame_width: 920,
                 frame_height: 800,
